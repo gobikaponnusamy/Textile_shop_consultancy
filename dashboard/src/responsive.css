@@ -120,3 +120,17 @@
     min-width: 700px;
   }
 }
+.logoadmin{
+  text-decoration: none;
+  color:black;
+  font-size: 25px;
+  font-family: 'Amaranth', sans-serif;
+}
+.brand-wrap
+{
+  text-decoration: none;
+  
+}
+.menu-aside{
+  position: fixed;
+}

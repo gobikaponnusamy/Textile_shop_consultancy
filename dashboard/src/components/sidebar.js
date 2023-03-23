@@ -1,19 +1,24 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import "../responsive.css"
 
 const Sidebar = () => {
   return (
-    <div>
+    <div className="main-side">
       <aside className="navbar-aside" id="offcanvas_aside">
         <div className="aside-top">
           <Link to="/" className="brand-wrap">
+            <div>
             <img
-              src="/images/logo.png"
-              style={{ height: "46" }}
+              src="/images/logo.jpg"
+              style={{ height: "100px", marginBottom:"15px"}}
               className="logo"
               alt="Ecommerce dashboard template"
             />
+            <span className="logoadmin">Admin</span>
+            </div>
           </Link>
+          
           <div>
             <button className="btn btn-icon btn-aside-minimize">
               <i className="text-muted fas fa-stream"></i>

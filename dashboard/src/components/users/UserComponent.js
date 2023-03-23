@@ -67,7 +67,7 @@ const UserComponent = () => {
                     <div className="card-header">
                       <img
                         className="img-md img-avatar"
-                        src="images/favicon.png"
+                        src="images/logo.jpg"
                         alt="User pic"
                       />
                     </div>
