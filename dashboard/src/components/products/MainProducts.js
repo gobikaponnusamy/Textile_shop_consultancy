@@ -43,7 +43,6 @@ const MainProducts = () => {
             <div className="col-lg-2 col-6 col-md-3">
               <select className="form-select">
                 <option>All category</option>
-                <option>Electronics</option>
                 <option>Clothings</option>
                 <option>Something else</option>
               </select>
