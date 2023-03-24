@@ -1,7 +1,6 @@
-import React, { useEffect , useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Product from "./Product";
-import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../../Redux/Actions/ProductActions";
 import Loading from "../LoadingError/Loading";
@@ -9,8 +8,7 @@ import Message from "../LoadingError/Error";
 
 const MainProducts = () => {
   const dispatch = useDispatch();
-  const [keyword, setKeyword] = useState();
-  let history = useHistory();
+
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
 
@@ -20,14 +18,7 @@ const MainProducts = () => {
   useEffect(() => {
     dispatch(listProducts());
   }, [dispatch, successDelete]);
-  const submitHandler = (e) => {
-    e.preventDefault();
-    if (keyword.trim()) {
-      history.push(`/${keyword}`);
-    } else {
-      history.push("/");
-    }
-  };
+
   return (
     <section className="content-main">
       <div className="content-header">
@@ -43,17 +34,11 @@ const MainProducts = () => {
         <header className="card-header bg-white ">
           <div className="row gx-3 py-3">
             <div className="col-lg-4 col-md-6 me-auto ">
-            <form onSubmit={submitHandler} className="input-group">
               <input
                 type="search"
                 placeholder="Search..."
-                className="form-control rounded search"
-                onChange={(e) => setKeyword(e.target.value)}
+                className="form-control p-2"
               />
-              <button type="submit" className="search-button">
-                      search
-                    </button>
-                  </form>
             </div>
             <div className="col-lg-2 col-6 col-md-3">
               <select className="form-select">
