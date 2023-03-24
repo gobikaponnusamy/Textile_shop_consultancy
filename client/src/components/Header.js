@@ -19,6 +19,7 @@ const Header = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    console.log(keyword)
     if (keyword.trim()) {
       history.push(`/search/${keyword}`);
     } else {

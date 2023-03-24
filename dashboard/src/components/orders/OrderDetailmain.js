@@ -68,9 +68,9 @@ const OrderDetailmain = (props) => {
                   <option>Shipped</option>
                   <option>Delivered</option>
                 </select>
-                <Link className="btn btn-success ms-2" to="#">
+                {/* <Link className="btn btn-success ms-2" to="#">
                   <i className="fas fa-print"></i>
-                </Link>
+                </Link> */}
               </div>
             </div>
           </header>

@@ -6,16 +6,16 @@ const Sidebar = () => {
   return (
     <div className="main-side">
       <aside className="navbar-aside" id="offcanvas_aside">
+              {/* <span className="logoadmin">Admin</span> */}
         <div className="aside-top">
           <Link to="/" className="brand-wrap">
             <div>
             <img
               src="/images/logo.jpg"
-              style={{ height: "100px", marginBottom:"15px"}}
+              style={{ height: "100px"}}
               className="logo"
               alt="Ecommerce dashboard template"
             />
-            <span className="logoadmin">Admin</span>
             </div>
           </Link>
           

@@ -30,7 +30,6 @@
   }
 }
 @media all and (max-width: 768px) {
-  /* mobile devices */
   .mobile-block {
     display: block !important;
   }
