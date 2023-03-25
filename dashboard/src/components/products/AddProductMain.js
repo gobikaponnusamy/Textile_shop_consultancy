@@ -42,9 +42,17 @@ const AddProductMain = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      createProduct(name, price, description, image, countInStock, category)
-    );
+    if (countInStock >= 0 && price >= 0) {
+      dispatch(
+        createProduct(name, price, description, image, countInStock, category)
+      );
+    } else {
+      if (countInStock < 0) {
+        alert("countInStock should be positive");
+      } else {
+        alert("price should be positive");
+      }
+    }
   };
 
   return (

@@ -47,10 +47,12 @@ const productSchema = mongoose.Schema(
     price: {
       type: Number,
       required: true,
+      minimum: 0,
       default: 0,
     },
     countInStock: {
       type: Number,
+      minimum: 0,
       required: true,
       default: 0,
     },
