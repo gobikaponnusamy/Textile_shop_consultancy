@@ -7,15 +7,24 @@ const CreateCategory = () => {
   // const dispatch = useDispatch();
   const submitform = (e) => {
     e.preventDefault();
-    console.log(categoryName);
-    axios
-      .post("http://localhost:5000/api/categories/", "arun")
-      .then(() => {
-        console.log("Success");
+    // console.log(categoryName);
+    const register=async()=>{
+      const response=await axios.post("http://localhost:5000/api/categories/",{
+        categoryName:categoryName
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      console.log(response);
+    }
+    register();
+
+
+    // axios
+    //   .post("http://localhost:5000/api/categories/", "arun")
+    //   .then(() => {
+    //     console.log("Success");
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
     // dispatch(createCategory(categoryName));
   };
   return (
