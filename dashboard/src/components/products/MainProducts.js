@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Product from "./Product";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,10 +15,28 @@ const MainProducts = () => {
   const productDelete = useSelector((state) => state.productDelete);
   const { error: errorDelete, success: successDelete } = productDelete;
 
+  const [searchInput, setInputSearch] = useState("");
+  const [selectedCategory, setSearch] = useState("");
+  const [price, setPrice] = useState("");
+
   useEffect(() => {
     dispatch(listProducts());
   }, [dispatch, successDelete]);
 
+  const categorysearch = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const filteredProducts = products.filter(
+    (product) =>
+      product.name.toLowerCase().includes(searchInput.toLowerCase()) &&
+      (!selectedCategory || product.category === selectedCategory)
+  );
+  if (price === "low-high") {
+    filteredProducts.sort((a, b) => a.price - b.price);
+  } else if (price === "high-low") {
+    filteredProducts.sort((a, b) => b.price - a.price);
+  }
   return (
     <section className="content-main">
       <div className="content-header">
@@ -33,25 +51,34 @@ const MainProducts = () => {
       <div className="card mb-4 shadow-sm">
         <header className="card-header bg-white ">
           <div className="row gx-3 py-3">
-            <div className="col-lg-4 col-md-6 me-auto ">
+            <div className="col-lg-4 col-md-6 me-auto col-md-2">
               <input
                 type="search"
                 placeholder="Search..."
                 className="form-control p-2"
+                value={searchInput}
+                onChange={(e) => setInputSearch(e.target.value)}
               />
+              {/* <button onClick={inputSearchFilter} className="btn btn-dark">
+                Search
+              </button> */}
             </div>
             <div className="col-lg-2 col-6 col-md-3">
-              <select className="form-select">
-                <option>All category</option>
-                <option>Clothings</option>
-                <option>Something else</option>
+              <select className="form-select" onChange={categorysearch}>
+                <option value="">All category</option>
+                <option value="cloth">Clothings</option>
+                <option value="stationary">Stationary</option>
+                <option value="bed">Beds</option>
               </select>
             </div>
             <div className="col-lg-2 col-6 col-md-3">
-              <select className="form-select">
-                <option>Latest added</option>
-                <option>Cheap first</option>
-                <option>Most viewed</option>
+              <select
+                className="form-select"
+                onChange={(e) => setPrice(e.target.value)}
+              >
+                <option value="">Sort-by-order</option>
+                <option value="low-high">Cheap first</option>
+                <option value="high-low">High Price First</option>
               </select>
             </div>
           </div>
@@ -67,7 +94,7 @@ const MainProducts = () => {
             <Message variant="alert-danger">{error}</Message>
           ) : (
             <div className="row">
-              {products.map((product) => (
+              {filteredProducts.map((product) => (
                 <Product product={product} key={product._id} />
               ))}
             </div>

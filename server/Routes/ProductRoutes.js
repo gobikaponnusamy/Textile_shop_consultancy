@@ -11,14 +11,15 @@ productRoute.get(
   asyncHandler(async (req, res) => {
     const pageSize = 12;
     const page = Number(req.query.pageNumber) || 1;
-    const keyword = req.query.keyword!=" "
-      ? {
-          name: {
-            $regex: req.query.keyword,
-            $options: "i",
-          },
-        }
-      : {};
+    const keyword =
+      req.query.keyword != " "
+        ? {
+            name: {
+              $regex: req.query.keyword,
+              $options: "i",
+            },
+          }
+        : {};
     const count = await Product.countDocuments({ ...keyword });
     console.log(keyword);
     const products = await Product.find({ ...keyword })
@@ -115,7 +116,8 @@ productRoute.post(
   protect,
   admin,
   asyncHandler(async (req, res) => {
-    const { name, price, description, image, countInStock } = req.body;
+    const { name, price, description, image, countInStock, category } =
+      req.body;
     const productExist = await Product.findOne({ name });
     if (productExist) {
       res.status(400);
@@ -127,6 +129,7 @@ productRoute.post(
         description,
         image,
         countInStock,
+        category,
         user: req.user._id,
       });
       if (product) {
