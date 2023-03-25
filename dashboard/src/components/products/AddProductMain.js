@@ -20,6 +20,7 @@ const AddProductMain = () => {
   const [image, setImage] = useState("");
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
 
   const dispatch = useDispatch();
 
@@ -35,12 +36,23 @@ const AddProductMain = () => {
       setCountInStock(0);
       setImage("");
       setPrice(0);
+      setCategory("");
     }
   }, [product, dispatch]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createProduct(name, price, description, image, countInStock));
+    if (countInStock >= 0 && price >= 0) {
+      dispatch(
+        createProduct(name, price, description, image, countInStock, category)
+      );
+    } else {
+      if (countInStock < 0) {
+        alert("countInStock should be positive");
+      } else {
+        alert("price should be positive");
+      }
+    }
   };
 
   return (
@@ -109,6 +121,22 @@ const AddProductMain = () => {
                     />
                   </div>
                   <div className="mb-4">
+                    <label htmlFor="product_price" className="form-label">
+                      Category
+                    </label>
+                    <select
+                      className="form-control"
+                      id="product_price"
+                      required
+                      value={category}
+                      onChange={(e) => setCategory(e.target.value)}
+                    >
+                      <option value="cloth">Cloth</option>
+                      <option value="stationary">Stationary</option>
+                      <option value="bed">Bed</option>
+                    </select>
+                  </div>
+                  <div className="mb-4">
                     <label className="form-label">Description</label>
                     <textarea
                       placeholder="Type here"
@@ -129,7 +157,7 @@ const AddProductMain = () => {
                       required
                       onChange={(e) => setImage(e.target.value)}
                     />
-                    <input className="form-control mt-3" type="file" />
+                    {/* <input className="form-control mt-3" type="file" /> */}
                   </div>
                 </div>
               </div>
