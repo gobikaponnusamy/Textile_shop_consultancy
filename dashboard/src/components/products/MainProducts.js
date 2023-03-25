@@ -27,7 +27,7 @@ const MainProducts = () => {
     setSearch(event.target.value);
   };
 
-  const filteredProducts = products.filter(
+  var filteredProducts = products.filter(
     (product) =>
       product.name.toLowerCase().includes(searchInput.toLowerCase()) &&
       (!selectedCategory || product.category === selectedCategory)
