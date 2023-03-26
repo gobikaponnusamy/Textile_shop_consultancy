@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -26,7 +27,7 @@ const AddProductMain = () => {
 
   const productCreate = useSelector((state) => state.productCreate);
   const { loading, error, product } = productCreate;
-
+  const [categorylists, setCategoryList] = useState([]);
   useEffect(() => {
     if (product) {
       toast.success("Product Added", ToastObjects);
@@ -38,6 +39,13 @@ const AddProductMain = () => {
       setPrice(0);
       setCategory("");
     }
+    axios
+      .get("http://localhost:5000/api/categories/all")
+      .then((response) => {
+        console.log(response.data);
+        setCategoryList(response.data);
+      })
+      .catch((error) => console.log(error));
   }, [product, dispatch]);
 
   const submitHandler = (e) => {
@@ -131,9 +139,14 @@ const AddProductMain = () => {
                       value={category}
                       onChange={(e) => setCategory(e.target.value)}
                     >
-                      <option value="cloth">Cloth</option>
+                      {/* <option value="cloth">Cloth</option>
                       <option value="stationary">Stationary</option>
-                      <option value="bed">Bed</option>
+                      <option value="bed">Bed</option> */}
+                      {categorylists.map((category, index) => (
+                        <option value={category.categoryName}>
+                          {category.categoryName}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <div className="mb-4">

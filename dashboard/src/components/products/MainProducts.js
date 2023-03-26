@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import Product from "./Product";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,9 +19,16 @@ const MainProducts = () => {
   const [searchInput, setInputSearch] = useState("");
   const [selectedCategory, setSearch] = useState("");
   const [price, setPrice] = useState("");
-
+  const [categorylists, setCategoryList] = useState([]);
   useEffect(() => {
     dispatch(listProducts());
+    axios
+      .get("http://localhost:5000/api/categories/all")
+      .then((response) => {
+        console.log(response.data);
+        setCategoryList(response.data);
+      })
+      .catch((error) => console.log(error));
   }, [dispatch, successDelete]);
 
   const categorysearch = (event) => {
@@ -66,9 +74,15 @@ const MainProducts = () => {
             <div className="col-lg-2 col-6 col-md-3">
               <select className="form-select" onChange={categorysearch}>
                 <option value="">All category</option>
-                <option value="cloth">Clothings</option>
+                {categorylists.map((category, index) => (
+                  <option value={category.categoryName}>
+                    {category.categoryName}
+                  </option>
+                ))}
+                {/* <option value="cloth">Clothings</option>
                 <option value="stationary">Stationary</option>
-                <option value="bed">Beds</option>
+                <option value="bed">Beds</option> */}
+                {}
               </select>
             </div>
             <div className="col-lg-2 col-6 col-md-3">

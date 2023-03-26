@@ -1,31 +1,18 @@
 import React, { useState } from "react";
 import axios from "axios";
-// import { useDispatch } from "react-redux";
-// import { createCategory } from "../../Redux/Actions/CategoryAction";
 const CreateCategory = () => {
   const [categoryName, setCategoryName] = useState("");
-  // const dispatch = useDispatch();
   const submitform = (e) => {
-    e.preventDefault();
-    // console.log(categoryName);
-    const register=async()=>{
-      const response=await axios.post("http://localhost:5000/api/categories/",{
-        categoryName:categoryName
-      })
+    const register = async () => {
+      const response = await axios.post(
+        "http://localhost:5000/api/categories/",
+        {
+          categoryName: categoryName,
+        }
+      );
       console.log(response);
-    }
+    };
     register();
-
-
-    // axios
-    //   .post("http://localhost:5000/api/categories/", "arun")
-    //   .then(() => {
-    //     console.log("Success");
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    // dispatch(createCategory(categoryName));
   };
   return (
     <div className="col-md-12 col-lg-4">
