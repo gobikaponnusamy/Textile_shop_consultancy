@@ -16,7 +16,7 @@ const Header = () => {
   const logoutHandler = () => {
     dispatch(logout());
   };
-
+  
   const submitHandler = (e) => {
     e.preventDefault();
     console.log(keyword)
@@ -29,7 +29,7 @@ const Header = () => {
   return (
     <div>
       {/* Top Header */}
-      <div className="Announcement ">
+      {/* <div className="Announcement ">
         <div className="container">
           <div className="row">
             <div className="col-md-6 d-flex align-items-center display-none">
@@ -55,7 +55,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       {/* Header */}
       <div className="header">
         <div className="container">
