@@ -7,6 +7,7 @@ body {
   font-size: 17px;
   padding: 0;
   box-sizing: border-box;
+
 }
 a {
   text-decoration: none;
@@ -40,7 +41,7 @@ textarea:focus {
   padding: 0;
 }
 .Announcement {
-  background-color: #1cb803;
+ 
   padding: 10px 0px 6px 0px;
 }
 .Announcement .col-md-6 p {
@@ -66,7 +67,7 @@ textarea:focus {
 }
 .search-button {
   width: 20%;
-  background-color: black;
+  background-color: grey;
   color: white;
   border: 0;
   text-transform: uppercase;
@@ -98,7 +99,7 @@ textarea:focus {
 }
 
 .dropdown-menu {
-  background-color: black !important;
+  background-color: grey !important;
   border: 0 !important;
   padding: 0 !important;
   overflow: hidden;
@@ -109,9 +110,10 @@ textarea:focus {
   margin: 0 !important;
 }
 .dropdown-menu a:hover {
-  background-color: #1cb803 !important;
+  background-color: #9d6b53  !important;
   color: #ffffff !important;
 }
+
 .mobile-header {
   display: none;
 }
@@ -232,7 +234,7 @@ textarea:focus {
   width: 460px;
 }
 .form-section input[type="submit"] {
-  background: #1cb803;
+  background: grey ;
   border: 0 none;
   border-radius: 25px;
   color: #fff;
@@ -263,10 +265,10 @@ textarea:focus {
 .info-image {
   width: 50px;
   height: 50px;
-  border: 2px solid #1cb803;
+  border: 2px solid grey ;
   border-radius: 100px;
   font-size: 20px;
-  color: #1cb803;
+  color: grey;
 }
 .box-info h5 {
   font-weight: bold;
@@ -351,7 +353,7 @@ textarea:focus {
 }
 .round-black-btn:hover,
 .round-black-btn:focus {
-  background: #1cb803;
+  background: grey;
 }
 
 /* LOGIN */
@@ -384,7 +386,7 @@ textarea:focus {
   margin-top: 20px;
   padding: 20px 0;
   border: 0;
-  background-color: #1cb803;
+  background-color: grey;
   border-radius: 5px;
   text-transform: uppercase;
   color: white;
@@ -428,7 +430,7 @@ textarea:focus {
   padding: 15px 20px;
   font-size: 13px;
   background-color: #ffffff;
-  color: black;
+  color:grey;
   width: 100%;
   text-align: start;
   border-radius: 0;
@@ -437,7 +439,7 @@ textarea:focus {
 }
 .wizard .nav .active {
   background-color: #e5fee9;
-  color: black;
+  color: grey;
 }
 .badge2 {
   width: 20px;
@@ -469,7 +471,7 @@ textarea:focus {
   margin-top: 20px;
   text-transform: uppercase;
   font-size: 13px;
-  background-color: #1cb803;
+  background-color: grey;
   color: #ffffff;
 }
 /* orders */
@@ -562,7 +564,7 @@ textarea:focus {
   border: 0px;
   text-transform: uppercase;
   font-size: 13px;
-  background-color: #1cb803;
+  background-color: grey;
   color: #ffffff;
 }
 .cart-buttons a:nth-child(1) button {
@@ -639,7 +641,7 @@ textarea:focus {
   border: 0px;
   text-transform: uppercase;
   font-size: 13px;
-  background-color: #1cb803;
+  background-color: grey;
   color: #ffffff;
 }
 
