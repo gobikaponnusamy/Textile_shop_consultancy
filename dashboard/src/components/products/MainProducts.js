@@ -25,7 +25,6 @@ const MainProducts = () => {
     axios
       .get("http://localhost:5000/api/categories/all")
       .then((response) => {
-        console.log(response.data);
         setCategoryList(response.data);
       })
       .catch((error) => console.log(error));
@@ -40,11 +39,13 @@ const MainProducts = () => {
       product.name.toLowerCase().includes(searchInput.toLowerCase()) &&
       (!selectedCategory || product.category === selectedCategory)
   );
+
   if (price === "low-high") {
     filteredProducts.sort((a, b) => a.price - b.price);
   } else if (price === "high-low") {
     filteredProducts.sort((a, b) => b.price - a.price);
   }
+  
   return (
     <section className="content-main">
       <div className="content-header">

@@ -68,7 +68,11 @@ export const createProductReview =
         },
       };
 
-      await axios.post(`${URL}/api/products/${productId}/review`, review, config);
+      await axios.post(
+        `${URL}/api/products/${productId}/review`,
+        review,
+        config
+      );
       dispatch({ type: PRODUCT_CREATE_REVIEW_SUCCESS });
     } catch (error) {
       const message =

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { listUser } from "../../Redux/Actions/userActions";
@@ -8,12 +8,21 @@ import Message from "../LoadingError/Error";
 const UserComponent = () => {
   const dispatch = useDispatch();
 
-  const userList = useSelector((state) => state.userList);
-  const { loading, error, users } = userList;
+  const productList = useSelector((state) => state.productList);
+  const { loading, error, users } = productList;
+  const [flag, setFlag] = useState(true);
 
+  const [searchInput, setSearchInput] = useState("");
   useEffect(() => {
     dispatch(listUser());
-  }, [dispatch]);
+    setFlag(false);
+  });
+
+  // if(!flag)
+  var filteredusers = users.map((user) =>
+    user.email.toLowerCase().includes(searchInput.toLowerCase())
+  );
+
   return (
     <section className="content-main">
       <div className="content-header">
@@ -33,6 +42,7 @@ const UserComponent = () => {
                 type="text"
                 placeholder="Search..."
                 className="form-control"
+                onChange={(e) => setSearchInput(e.target.value)}
               />
             </div>
             <div className="col-lg-2 col-6 col-md-3">
@@ -61,7 +71,7 @@ const UserComponent = () => {
             <Message variant="alert-danger">{error}</Message>
           ) : (
             <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
-              {users.map((user) => (
+              {filteredusers.map((user) => (
                 <div className="col" key={user._id}>
                   <div className="card card-user shadow-sm">
                     <div className="card-header">
