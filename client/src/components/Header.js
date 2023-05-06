@@ -64,7 +64,7 @@ const Header = () => {
         <li class="nav-item">
           <Link class="nav-link" to="/product"  style={{color:"white",paddingLeft:"20px"}}>Products</Link>
         </li>
-        <li class="nav-item dropdown">
+        {/* <li class="nav-item dropdown">
           <Link class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"  style={{color:"white",paddingLeft:"20px"}}>
             Services
           </Link>
@@ -74,7 +74,7 @@ const Header = () => {
             <li><hr class="dropdown-divider"/></li>
             <li><Link class="dropdown-item" to="/">Something else here</Link></li>
           </ul>
-        </li>
+        </li> */}
         <li class="nav-item">
           <Link class="nav-link" to="/contactus"  style={{color:"white",paddingLeft:"20px"}}>Contact Us</Link>
         </li>
@@ -182,7 +182,7 @@ const Header = () => {
                     <span className="badge">{cartItems.length}</span>
                   </Link>
                 </div>
-                <div className="col-12 d-flex align-items-center">
+                {/* <div className="col-12 d-flex align-items-center">
                   <form onSubmit={submitHandler} className="input-group">
                     <input
                       type="search"
@@ -194,7 +194,7 @@ const Header = () => {
                       search
                     </button>
                   </form>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

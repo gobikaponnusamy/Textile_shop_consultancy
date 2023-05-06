@@ -4,6 +4,15 @@ const TrendingProducts = () => {
     const [keyword, setKeyword] = useState();
     let history = useHistory();
 
+    const[List, setList] = useState([])
+    // const[serachedList, setSearchedList] = useState([])
+    // const[search, setSearch] = useState('')
+    // useEffect(() => {
+    //         axios.get('https://localhost:5000')
+    //         .then((response) => {setList(response.data)})
+    //         .catch((error) => console.log(error))    
+    //     },[]
+    // )
     const submitHandler = (e) => {
         e.preventDefault();
         console.log(keyword)

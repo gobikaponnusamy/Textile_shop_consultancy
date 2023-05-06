@@ -17,6 +17,7 @@ import PrivateRouter from "./PrivateRouter";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "./Redux/Actions/ProductActions";
 import { listOrders } from "./Redux/Actions/OrderActions";
+import Queries from "./components/Queries/Queries";
 
 function App() {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ function App() {
             component={ProductEditScreen}
           />
           <Route path="/login" component={Login} />
+          <Route path="/queries" component={Queries}/>
           <PrivateRouter path="*" component={NotFound} />
         </Switch>
       </Router>

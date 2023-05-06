@@ -200,9 +200,10 @@ textarea:focus {
 
 /* NEWSLATTER */
 .subscribe-section {
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.226), rgba(0, 0, 0, 0.226)),
+  /* background: linear-gradient(0deg, rgba(0, 0, 0, 0.226), rgba(0, 0, 0, 0.226)),
     url("https://sasshoes-com.s3.us-west-2.amazonaws.com/img/banner-uplift-21.jpg")
-      no-repeat scroll center / cover;
+      no-repeat scroll center / cover; */
+  background-color: #9b9b9b;
   padding: 100px 0 100px;
 }
 .subscribe-head h2 {
