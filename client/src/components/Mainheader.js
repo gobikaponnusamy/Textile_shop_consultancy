@@ -1,11 +1,9 @@
-import React, { useState,useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../Redux/Actions/userActions";
-import { listProduct } from "../Redux/Actions/ProductActions";
 
-const Header = () => {
+const Mainheader = () => {
   const [keyword, setKeyword] = useState();
   const dispatch = useDispatch();
   let history = useHistory();
@@ -14,25 +12,6 @@ const Header = () => {
   const { cartItems } = cart;
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-  const [categorylists, setCategoryList] = useState([]);
-  const [selectedCategory, setSearch] = useState("");
-  const categorysearch = (event) => {
-    setSearch(event.target.value);
-  };
-  console.log(selectedCategory);
-  // var filteredProducts = products.filter(
-  //   (product) =>product.category === selectedCategory
-  // );
-  useEffect(() => {
-    dispatch(listProduct());
-    axios
-      .get("http://localhost:5000/api/categories/all")
-      .then((response) => {
-        console.log(response.data);
-        setCategoryList(response.data);
-      })
-      .catch((error) => console.log(error));
-  }, [dispatch]);
 
   const logoutHandler = () => {
     dispatch(logout());
@@ -48,9 +27,12 @@ const Header = () => {
     }
   };
   return (
-    <div>
+    <div style={{backgroundImage:`url("https://images.pexels.com/photos/1827130/pexels-photo-1827130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")`,backgroundRepeat:"no-repeat",backgroundSize:"cover" ,height:"100vh",width:"100%",position:"relative",objectFit:"cover"}} class="m-0">
       {/* Top Header */}
-      <nav class="navbar navbar-expand-lg m-3 bg-secondary " style={{ color:"white"}}>
+      <div >
+
+      <nav class="navbar navbar-expand-lg p-2.5 bg-secondary" style={{color:"white",borderRadius:"1px"}}>
+     
   <div class="container-fluid">
     <Link class="navbar-brand" to="/" style={{color:"white"}} href="#"> <img alt="logo" style={{width:"40px",height:"40px",borderRadius:"10px"}} src="/images/logo.png" /></Link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -122,6 +104,7 @@ const Header = () => {
     </div>
   </div>
 </nav>
+</div>
 
       <div className="header">
         <div className="container">
@@ -200,87 +183,20 @@ const Header = () => {
           </div>
 
           {/* PC HEADER */}
-          <div className="pc-header">
+          <div className="pc-header" >
           
             
-            <div className="row">
-              {/* <div className="col-md-3 col-4 d-flex align-items-center">
-                <Link className="navbar-brand" to="/">
-                  <img alt="logo" src="/images/logo.png" />
-                </Link>
-              </div> */}
-              <div className="col-5 d-flex flex-row-reverse align-items-center m-4" style={{display:"flex",justifyContent:"flex-end"}}>
-                <form onSubmit={submitHandler} className="input-group">
-                  <input
-                    type="search"
-                    className="form-control rounded search"
-                    placeholder="Search"
-                    onChange={(e) => setKeyword(e.target.value)}
-                  />
-                  <button type="submit" className="search-button bg-black">
-                    search
-                  </button>
-                </form>
-              </div>
-              <div className="col-3"></div>
-              <div className="col-2" style={{marginTop:"30px"}}>
-              <select className="form-select" style={{padding:"7px"}}  onChange={categorysearch}>
-                <option value="">All category</option>
-                {categorylists.map((category, index) => (
-                  <option value={category.categoryName}>
-                    {category.categoryName}
-                  </option>
-                ))}
-              </select>
-        
-              </div>
+            <div >
+                {/* <div className="col-12" style={{padding:"100px",fontFamily:"sans-serif",fontSize:"200px",textAlign:"center",backgroundColor:"white"}}> */}
+                <div className="hero" style={{position:"absolute",bottom:"25%",left:"28%"}}>
+                <h1 style={{textAlign:"center",fontSize:"3rem",fontWeight:"800",color:"white",textShadow:"2px 2px 4px #000000"}}>Fashions fade, style is eternal.</h1>
+                <br></br>
+                <p  style={{color:"#eeee",textAlign:"center",fontSize:"1.3rem",fontWeight:"700",padding:"0rem 0 2rem 0",textShadow:"2px 2px 4px #000000"}}>Choose your Products</p>
+                <a href="/product"style={{display:"flex",justifyContent:"center",textDecoration:"none",backgroundColor:"white",borderRadius:"6px",fontSize:"1.1rem",fontWeight:"bold",letterSpacing:"2px",color:"#222",width:"150px",padding:"9px",marginLeft:"250px"}}>Explore now</a>
+                </div>
               
-              
-
-             
-              
-              
-            
-              {/* <div className="col d-flex align-items-center justify-content-end Login-Register m-5">
-                {userInfo ? (
-                  <div className="btn-group">
-                    <button
-                      type="button"
-                      className="name-button dropdown-toggle"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      Hi, {userInfo.name}
-                    </button>
-                    <div className="dropdown-menu">
-                      <Link className="dropdown-item" to="/profile">
-                        Profile
-                      </Link>
-
-                      <Link
-                        className="dropdown-item"
-                        to="#"
-                        onClick={logoutHandler}
-                      >
-                        Logout
-                      </Link>
-                    </div>
-                  </div>
-                ) : (
-                  <>
-                    <Link to="/register">Register</Link>
-                    <Link to="/login">Login</Link>
-                    </>
-                    )}
-                    
-                    <Link to="/cart">
-                    <i className="fas fa-shopping-bag"></i>
-                  <span className="badge">{cartItems.length}</span>
-                </Link>
-              </div> */}
             </div>
-
+            
 </div>
 
 </div>
@@ -289,4 +205,4 @@ const Header = () => {
 );
 };
 
-export default Header;
+export default Mainheader;
