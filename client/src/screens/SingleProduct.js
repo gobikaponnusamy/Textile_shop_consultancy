@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Header from "./../components/Header";
 import Rating from "../components/homeComponents/Rating";
 import { Link } from "react-router-dom";
 import Message from "./../components/LoadingError/Error";
@@ -13,6 +12,8 @@ import Loading from "../components/LoadingError/Loading";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../Redux/Constants/ProductConstants";
 import moment from "moment";
 import { useParams } from "react-router-dom";
+import ContactHeader from "../components/ContactHeader";
+
 const SingleProduct = ({ history, match }) => {
   const { id } = useParams();
   const [qty, setQty] = useState(1);
@@ -77,7 +78,7 @@ const SingleProduct = ({ history, match }) => {
   
   return (
     <>
-      <Header />
+      <ContactHeader />
       <div className="container single-product">
         {loading ? (
           <Loading />

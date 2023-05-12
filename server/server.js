@@ -24,7 +24,6 @@ app.use("/api/categories", categoryRoute);
 app.get("/api/config/paypal", (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID);
 });
-
 // ERROR HANDLER
 app.use(notFound);
 app.use(errorHandler);

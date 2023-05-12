@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Header from "../components/Header";
 import { saveShippingAddress } from "../Redux/Actions/cartActions";
+import ContactHeader from "../components/ContactHeader";
 
 const ShippingScreen = ({ history }) => {
   window.scrollTo(0, 0);
@@ -23,7 +23,7 @@ const ShippingScreen = ({ history }) => {
   };
   return (
     <>
-      <Header />
+      <ContactHeader />
       <div className="container d-flex justify-content-center align-items-center login-center">
         <form
           className="Login col-md-8 col-lg-4 col-11"

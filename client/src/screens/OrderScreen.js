@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Header from "./../components/Header";
 import { PayPalButton } from "react-paypal-button-v2";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetails, payOrder } from "../Redux/Actions/OrderActions";
@@ -10,6 +9,7 @@ import moment from "moment";
 import axios from "axios";
 import { ORDER_PAY_RESET } from "../Redux/Constants/OrderConstants";
 import { URL } from "../Redux/url";
+import ContactHeader from "../components/ContactHeader";
 
 const OrderScreen = ({ match }) => {
   window.scrollTo(0, 0);
@@ -31,7 +31,26 @@ const OrderScreen = ({ match }) => {
       order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
     );
   }
-
+  // const [orderid, setCategoryList] = useState([]);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:5000/api/orders/getallorders")
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       setCategoryList(response.data);
+  //     })
+  //     .catch((error) => console.log(error));
+  // }, []);
+  console.log(orderId)
+   const payment=(event)=>{
+    axios.put(`http://localhost:5000/api/orders/orderss/${orderId}`).then((res)=>{
+      console.log(res);
+      window.location.reload();
+    }).catch((err)=>{
+      console.log(err);
+    })
+  }
+  
   useEffect(() => {
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get(`${URL}/api/config/paypal`);
@@ -62,7 +81,7 @@ const OrderScreen = ({ match }) => {
 
   return (
     <>
-      <Header />
+      <ContactHeader />
       <div className="container">
         {loading ? (
           <Loading />
@@ -217,7 +236,7 @@ const OrderScreen = ({ match }) => {
                     </tr>
                   </tbody>
                 </table>
-                {!order.isPaid && (
+                {/* {!order.isPaid && (
                   <div className="col-12">
                     {loadingPay && <Loading />}
                     {!sdkReady ? (
@@ -229,7 +248,8 @@ const OrderScreen = ({ match }) => {
                       />
                     )}
                   </div>
-                )}
+                )} */}
+                <button onClick={payment}>PAY ₹{order.totalPrice}</button>
               </div>
             </div>
           </>

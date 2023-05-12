@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Toast from "./../LoadingError/Toast";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,7 +27,8 @@ const EditProductMain = (props) => {
   const [image, setImage] = useState("");
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState("");
-
+  const [category, setCategory] = useState("");
+  const [categorylists, setCategoryList] = useState([]);
   const dispatch = useDispatch();
 
   const productEdit = useSelector((state) => state.productEdit);
@@ -40,6 +42,12 @@ const EditProductMain = (props) => {
   } = productUpdate;
 
   useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/categories/all")
+      .then((response) => {
+        setCategoryList(response.data);
+      })
+      .catch((error) => console.log(error));
     if (successUpdate) {
       dispatch({ type: PRODUCT_UPDATE_RESET });
       toast.success("Product Updated", ToastObjects);
@@ -52,6 +60,7 @@ const EditProductMain = (props) => {
         setCountInStock(product.countInStock);
         setImage(product.image);
         setPrice(product.price);
+        setCategory(product.category);
       }
     }
   }, [product, dispatch, productId, successUpdate]);
@@ -76,6 +85,17 @@ const EditProductMain = (props) => {
         alert("price should be positive");
       }
     }
+    dispatch(
+      updateProduct({
+        _id: productId,
+        name,
+        price,
+        description,
+        image,
+        countInStock,
+        category,
+      })
+    );
   };
 
   return (
@@ -152,6 +172,24 @@ const EditProductMain = (props) => {
                         />
                       </div>
                       <div className="mb-4">
+                        <label htmlFor="product_price" className="form-label">
+                          category
+                        </label>
+                        <select
+                          className="form-select"
+                          onChange={(e) => setCategory(e.target.value)}
+                        >
+                          {categorylists.map((categorys) => (
+                            <option
+                              key={categorys._id}
+                              value={categorys.categoryName}
+                            >
+                              {categorys.categoryName}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="mb-4">
                         <label className="form-label">Description</label>
                         <textarea
                           placeholder="Type here"
@@ -162,6 +200,7 @@ const EditProductMain = (props) => {
                           onChange={(e) => setDescription(e.target.value)}
                         ></textarea>
                       </div>
+
                       <div className="mb-4">
                         <label className="form-label">Images</label>
                         <input

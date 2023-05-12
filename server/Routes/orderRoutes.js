@@ -20,6 +20,8 @@ orderRouter.get("/review", protect, asyncHandler(async (req, res) => {
   res.json(orders);
 }));
 // CREATE ORDER
+
+
 orderRouter.post(
   "/",
   protect,
@@ -68,16 +70,6 @@ orderRouter.get(
     res.json(orders);  
   })  
 );  
-// USER LOGIN ORDERS
-
-orderRouter.get(
-  "/",
-  protect,
-  asyncHandler(async (req, res) => {
-    const order = await Order.find({ user: req.user._id }).sort({ _id: -1 });
-    res.json(order);
-  })
-);
 
 // USER LOGIN ORDERS
 orderRouter.get(
@@ -153,5 +145,14 @@ orderRouter.put(
     }
   })
 );
+orderRouter.put('/orderss/:id', async (req, res) => {
+  try {
+    const orders = await Order.findByIdAndUpdate(req.params.id, { isPaid: true }, { new: true });
+    res.json(orders);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 export default orderRouter;

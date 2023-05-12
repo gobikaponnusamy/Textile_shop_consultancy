@@ -42,7 +42,6 @@ const AddProductMain = () => {
     axios
       .get("http://localhost:5000/api/categories/all")
       .then((response) => {
-        console.log(response.data);
         setCategoryList(response.data);
       })
       .catch((error) => console.log(error));
@@ -139,8 +138,8 @@ const AddProductMain = () => {
                       value={category}
                       onChange={(e) => setCategory(e.target.value)}
                     >
-                      {/* <option value="cloth">Cloth</option>
-                      <option value="stationary">Stationary</option>
+                      <option>Select Category</option>
+                      {/* <option value="stationary">Stationary</option>
                       <option value="bed">Bed</option> */}
                       {categorylists.map((category, index) => (
                         <option value={category.categoryName}>
