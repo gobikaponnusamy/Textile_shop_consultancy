@@ -45,6 +45,7 @@ const OrderScreen = ({ match }) => {
    const payment=(event)=>{
     axios.put(`http://localhost:5000/api/orders/orderss/${orderId}`).then((res)=>{
       console.log(res);
+      window.location.reload();
     }).catch((err)=>{
       console.log(err);
     })
@@ -235,7 +236,7 @@ const OrderScreen = ({ match }) => {
                     </tr>
                   </tbody>
                 </table>
-                {!order.isPaid && (
+                {/* {!order.isPaid && (
                   <div className="col-12">
                     {loadingPay && <Loading />}
                     {!sdkReady ? (
@@ -247,8 +248,8 @@ const OrderScreen = ({ match }) => {
                       />
                     )}
                   </div>
-                )}
-                <button onClick={payment}>Make Payment</button>
+                )} */}
+                <button onClick={payment}>PAY ₹{order.totalPrice}</button>
               </div>
             </div>
           </>
