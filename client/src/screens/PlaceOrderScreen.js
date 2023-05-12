@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { createOrder } from "../Redux/Actions/OrderActions";
 import { ORDER_CREATE_RESET } from "../Redux/Constants/OrderConstants";
-import Header from "./../components/Header";
 import Message from "./../components/LoadingError/Error";
+import ContactHeader from "../components/ContactHeader";
+import axios from "axios";
+// import GooglePay from "./GooglePay";
 
 const PlaceOrderScreen = ({ history }) => {
   window.scrollTo(0, 0);
@@ -33,6 +35,14 @@ const PlaceOrderScreen = ({ history }) => {
 
   const orderCreate = useSelector((state) => state.orderCreate);
   const { order, success, error } = orderCreate;
+  
+  // const payment=(event)=>{
+  //   axios.put(`http://localhost:5000/api/orders/orderss/${event.target.value}`).then((res)=>{
+  //     console.log("payment successfull");
+  //   }).catch((err)=>{
+  //     console.log
+  //   })
+  // }
 
   useEffect(() => {
     if (success) {
@@ -50,14 +60,14 @@ const PlaceOrderScreen = ({ history }) => {
         itemsPrice: cart.itemsPrice,
         shippingPrice: cart.shippingPrice,
         taxPrice: cart.taxPrice,
-        totalPrice: cart.totalPrice,
+        totalPrice: cart.totalPrice
       })
     );
   };
 
   return (
     <>
-      <Header />
+      <ContactHeader />
       <div className="container">
         <div className="row  order-detail">
           <div className="col-lg-4 col-sm-4 mb-lg-4 mb-5 mb-sm-0">
@@ -179,6 +189,12 @@ const PlaceOrderScreen = ({ history }) => {
                 PLACE ORDER
               </button>
             )}
+             {/* <button type="submit" value={order._id} onClick={payment}>
+                Make Payment
+              </button> */}
+            {/* {cart.cartItems.length === 0 ? null : (
+             
+            )} */}
             {error && (
               <div className="my-3 col-12">
                 <Message variant="alert-danger">{error}</Message>

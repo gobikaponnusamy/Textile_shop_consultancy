@@ -6,6 +6,8 @@ import Order from "./../Models/OrderModel.js";
 const orderRouter = express.Router();
 
 // CREATE ORDER
+
+
 orderRouter.post(
   "/",
   protect,
@@ -54,6 +56,11 @@ orderRouter.get(
     res.json(orders);
   })
 );
+orderRouter.get("/getallorders",asyncHandler(async (req, res) => {
+  const orders = await Order.find()
+  res.json(orders);
+}));
+
 // USER LOGIN ORDERS
 orderRouter.get(
   "/",
@@ -128,5 +135,14 @@ orderRouter.put(
     }
   })
 );
+orderRouter.put('/orderss/:id', async (req, res) => {
+  try {
+    const orders = await Order.findByIdAndUpdate(req.params.id, { isPaid: true }, { new: true });
+    res.json(orders);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 export default orderRouter;
