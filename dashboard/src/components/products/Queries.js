@@ -59,6 +59,9 @@ const Queries = () => {
                      <p>{x.email}</p>
                      <p>{x.subject}</p>
                      <p>{x.message}</p>
+                     <p>
+  <strong>Query Date:</strong> {(new Date(x.createdAt)).toLocaleDateString()}
+</p>
                    </div>
                    <button className="btn-secondary m-3"  value={x._id} onClick={deletepro}>Solve</button>
                  </div>

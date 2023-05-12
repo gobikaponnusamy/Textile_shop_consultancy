@@ -58,16 +58,24 @@ const EditProductMain = (props) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      updateProduct({
-        _id: productId,
-        name,
-        price,
-        description,
-        image,
-        countInStock,
-      })
-    );
+    if (countInStock >= 0 && price >= 0) {
+      dispatch(
+        updateProduct({
+          _id: productId,
+          name,
+          price,
+          description,
+          image,
+          countInStock,
+        })
+      );
+    } else {
+      if (countInStock < 0) {
+        alert("countInStock should be positive");
+      } else {
+        alert("price should be positive");
+      }
+    }
   };
 
   return (

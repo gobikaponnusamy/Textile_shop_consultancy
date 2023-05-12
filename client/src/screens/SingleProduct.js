@@ -4,6 +4,7 @@ import Rating from "../components/homeComponents/Rating";
 import { Link } from "react-router-dom";
 import Message from "./../components/LoadingError/Error";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 import {
   createProductReview,
   listProductDetails,
@@ -11,15 +12,14 @@ import {
 import Loading from "../components/LoadingError/Loading";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../Redux/Constants/ProductConstants";
 import moment from "moment";
-
+import { useParams } from "react-router-dom";
 const SingleProduct = ({ history, match }) => {
+  const { id } = useParams();
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
-
   const productId = match.params.id;
   const dispatch = useDispatch();
-
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
   const userLogin = useSelector((state) => state.userLogin);
@@ -45,15 +45,36 @@ const SingleProduct = ({ history, match }) => {
     e.preventDefault();
     history.push(`/cart/${productId}?qty=${qty}`);
   };
-  const submitHandler = (e) => {
+
+  const submitHandler =async (e) => {
     e.preventDefault();
-    dispatch(
-      createProductReview(productId, {
-        rating,
-        comment,
-      })
-    );
+    const userInfoString = localStorage.getItem("userInfo");
+    const userInfo = JSON.parse(userInfoString);
+    await axios.get(`http://localhost:5000/api/orders/review/?userid=${userInfo._id}&productid=${id}`,{
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${userInfo.token}`
+      }
+    })
+    .then((response) => {
+      if(response.data.length==0)
+      {
+        alert("As per record you not orderd this item so you cann't review this item")
+      }
+      else{
+        dispatch(
+          createProductReview(productId, {
+            rating,
+            comment,
+          })
+          );
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   };
+  
   return (
     <>
       <Header />
@@ -128,7 +149,7 @@ const SingleProduct = ({ history, match }) => {
             </div>
 
             {/* RATING */}
-            <div className="row my-5">
+            {<div className="row my-5">
               <div className="col-md-6">
                 <h6 className="mb-3">REVIEWS</h6>
                 {product.reviews.length === 0 && (
@@ -205,7 +226,7 @@ const SingleProduct = ({ history, match }) => {
                   </div>
                 )}
               </div>
-            </div>
+            </div>}
           </>
         )}
       </div>
