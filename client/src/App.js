@@ -20,6 +20,7 @@ import Contact from "./pages/Contact";
 
 const App = () => {
   return (
+    
     <Router>
       <Switch>
         <Route path="/" component={Home} exact />

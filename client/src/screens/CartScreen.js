@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import Header from "./../components/Header";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removefromcart } from "./../Redux/Actions/cartActions";
+import ContactHeader from "../components/ContactHeader";
 
 const CartScreen = ({ match, location, history }) => {
   window.scrollTo(0, 0);
@@ -30,7 +30,7 @@ const CartScreen = ({ match, location, history }) => {
   };
   return (
     <>
-      <Header />
+      <ContactHeader />
       {/* Cart */}
       <div className="container">
         {cartItems.length === 0 ? (

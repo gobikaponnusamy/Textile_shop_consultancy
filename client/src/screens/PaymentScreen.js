@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { savePaymentMethod } from "../Redux/Actions/cartActions";
-import Header from "./../components/Header";
+import ContactHeader from "../components/ContactHeader";
 
 const PaymentScreen = ({ history }) => {
   window.scrollTo(0, 0);
@@ -24,7 +24,7 @@ const PaymentScreen = ({ history }) => {
   };
   return (
     <>
-      <Header />
+      <ContactHeader />
       <div className="container d-flex justify-content-center align-items-center login-center">
         <form
           className="Login2 col-md-8 col-lg-4 col-11"
@@ -39,7 +39,7 @@ const PaymentScreen = ({ history }) => {
                 value={paymentMethod}
                 onChange={(e) => setPaymentMethod(e.target.value)}
               />
-              <label className="form-check-label">PayPal or Credit Card</label>
+              <label className="form-check-label">Credit Card</label>
             </div>
           </div>
 
