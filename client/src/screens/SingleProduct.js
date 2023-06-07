@@ -47,35 +47,39 @@ const SingleProduct = ({ history, match }) => {
     history.push(`/cart/${productId}?qty=${qty}`);
   };
 
-  const submitHandler =async (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     const userInfoString = localStorage.getItem("userInfo");
     const userInfo = JSON.parse(userInfoString);
-    await axios.get(`http://localhost:5000/api/orders/review/?userid=${userInfo._id}&productid=${id}`,{
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${userInfo.token}`
-      }
-    })
-    .then((response) => {
-      if(response.data.length==0)
-      {
-        alert("As per record you not orderd this item so you cann't review this item")
-      }
-      else{
-        dispatch(
-          createProductReview(productId, {
-            rating,
-            comment,
-          })
+    await axios
+      .get(
+        `http://localhost:5000/api/orders/review/?userid=${userInfo._id}&productid=${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        }
+      )
+      .then((response) => {
+        if (response.data.length == 0) {
+          alert(
+            "As per record you not orderd this item so you cann't review this item"
           );
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+        } else {
+          dispatch(
+            createProductReview(productId, {
+              rating,
+              comment,
+            })
+          );
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
-  
+
   return (
     <>
       <ContactHeader />
@@ -150,84 +154,86 @@ const SingleProduct = ({ history, match }) => {
             </div>
 
             {/* RATING */}
-            {<div className="row my-5">
-              <div className="col-md-6">
-                <h6 className="mb-3">REVIEWS</h6>
-                {product.reviews.length === 0 && (
-                  <Message variant={"alert-info mt-3"}>No Reviews</Message>
-                )}
-                {product.reviews.map((review) => (
-                  <div
-                    key={review._id}
-                    className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded"
-                  >
-                    <strong>{review.name}</strong>
-                    <Rating value={review.rating} />
-                    <span>{moment(review.createdAt).calendar()}</span>
-                    <div className="alert alert-info mt-3">
-                      {review.comment}
+            {
+              <div className="row my-5">
+                <div className="col-md-6">
+                  <h6 className="mb-3">REVIEWS</h6>
+                  {product.reviews.length === 0 && (
+                    <Message variant={"alert-info mt-3"}>No Reviews</Message>
+                  )}
+                  {product.reviews.map((review) => (
+                    <div
+                      key={review._id}
+                      className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded"
+                    >
+                      <strong>{review.name}</strong>
+                      <Rating value={review.rating} />
+                      <span>{moment(review.updatedAt).calendar()}</span>
+                      <div className="alert alert-info mt-3">
+                        {review.comment}
+                      </div>
                     </div>
+                  ))}
+                </div>
+                <div className="col-md-6">
+                  <h6>WRITE A CUSTOMER REVIEW</h6>
+                  <div className="my-4">
+                    {loadingCreateReview && <Loading />}
+                    {errorCreateReview && (
+                      <Message variant="alert-danger">
+                        {errorCreateReview}
+                      </Message>
+                    )}
                   </div>
-                ))}
-              </div>
-              <div className="col-md-6">
-                <h6>WRITE A CUSTOMER REVIEW</h6>
-                <div className="my-4">
-                  {loadingCreateReview && <Loading />}
-                  {errorCreateReview && (
-                    <Message variant="alert-danger">
-                      {errorCreateReview}
-                    </Message>
+                  {userInfo ? (
+                    <form onSubmit={submitHandler}>
+                      <div className="my-4">
+                        <strong>Rating</strong>
+                        <select
+                          value={rating}
+                          onChange={(e) => setRating(e.target.value)}
+                          className="col-12 bg-light p-3 mt-2 border rounded"
+                        >
+                          <option value="">Select...</option>
+                          <option value="1">1 - Poor</option>
+                          <option value="2">2 - Fair</option>
+                          <option value="3">3 - Good</option>
+                          <option value="4">4 - Very Good</option>
+                          <option value="5">5 - Excellent</option>
+                        </select>
+                      </div>
+                      <div className="my-4">
+                        <strong>Comment</strong>
+                        <textarea
+                          row="3"
+                          value={comment}
+                          onChange={(e) => setComment(e.target.value)}
+                          className="col-12 bg-light p-3 mt-2 border rounded"
+                        ></textarea>
+                      </div>
+                      <div className="my-3">
+                        <button
+                          disabled={loadingCreateReview}
+                          className="col-12 bg-black border-0 p-3 rounded text-white"
+                        >
+                          SUBMIT
+                        </button>
+                      </div>
+                    </form>
+                  ) : (
+                    <div className="my-3">
+                      <Message variant={"alert-warning"}>
+                        Please{" "}
+                        <Link to="/login">
+                          " <strong>Login</strong> "
+                        </Link>{" "}
+                        to write a review{" "}
+                      </Message>
+                    </div>
                   )}
                 </div>
-                {userInfo ? (
-                  <form onSubmit={submitHandler}>
-                    <div className="my-4">
-                      <strong>Rating</strong>
-                      <select
-                        value={rating}
-                        onChange={(e) => setRating(e.target.value)}
-                        className="col-12 bg-light p-3 mt-2 border-0 rounded"
-                      >
-                        <option value="">Select...</option>
-                        <option value="1">1 - Poor</option>
-                        <option value="2">2 - Fair</option>
-                        <option value="3">3 - Good</option>
-                        <option value="4">4 - Very Good</option>
-                        <option value="5">5 - Excellent</option>
-                      </select>
-                    </div>
-                    <div className="my-4">
-                      <strong>Comment</strong>
-                      <textarea
-                        row="3"
-                        value={comment}
-                        onChange={(e) => setComment(e.target.value)}
-                        className="col-12 bg-light p-3 mt-2 border-0 rounded"
-                      ></textarea>
-                    </div>
-                    <div className="my-3">
-                      <button
-                        disabled={loadingCreateReview}
-                        className="col-12 bg-black border-0 p-3 rounded text-white"
-                      >
-                        SUBMIT
-                      </button>
-                    </div>
-                  </form>
-                ) : (
-                  <div className="my-3">
-                    <Message variant={"alert-warning"}>
-                      Please{" "}
-                      <Link to="/login">
-                        " <strong>Login</strong> "
-                      </Link>{" "}
-                      to write a review{" "}
-                    </Message>
-                  </div>
-                )}
               </div>
-            </div>}
+            }
           </>
         )}
       </div>

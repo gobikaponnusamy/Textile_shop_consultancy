@@ -26,7 +26,7 @@ const category = ({ list, index }) => {
       <td>
         <b>{list.categoryName}</b>
       </td>
-      <td>Men clothes</td>
+      <td>{list.categoryDescription}</td>
       <td className="text-end">
         <div className="dropdown">
           <Link to="#" data-bs-toggle="dropdown" className="btn btn-light">

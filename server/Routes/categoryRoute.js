@@ -8,11 +8,11 @@ const categoryRoute = express.Router();
 categoryRoute.post(
   "/",
   asyncHandler(async (req, res) => {
-    const { categoryName } = req.body;
-    console.log(req.body);
-    console.log(categoryName);
+    const { categoryName, categoryDescription } = req.body;
+
     const newCategory = new categoryModel({
       categoryName,
+      categoryDescription,
     });
     const categorycreated = await newCategory.save();
     res.status(201).json(categorycreated);

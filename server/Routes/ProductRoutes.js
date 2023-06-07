@@ -21,7 +21,7 @@ productRoute.get(
           }
         : {};
     const count = await Product.countDocuments({ ...keyword });
-    console.log(keyword);
+    // console.log(keyword);
     const products = await Product.find({ ...keyword })
       .limit(pageSize)
       .skip(pageSize * (page - 1))
@@ -68,8 +68,17 @@ productRoute.post(
         (r) => r.user.toString() === req.user._id.toString()
       );
       if (alreadyReviewed) {
-        res.status(400);
-        throw new Error("Product already Reviewed");
+        console.log("Before update:", product.reviews);
+
+        alreadyReviewed.rating = rating || alreadyReviewed.rating;
+        alreadyReviewed.comment = comment || alreadyReviewed.comment;
+
+        const updatedProduct = await product.save();
+
+        console.log("After update:", updatedProduct.reviews);
+        return res.status(200).json({
+          message: "Your review has been updated successfully.",
+        });
       }
       const review = {
         name: req.user.name,
