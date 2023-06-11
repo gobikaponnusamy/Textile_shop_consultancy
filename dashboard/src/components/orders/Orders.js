@@ -3,7 +3,18 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 
 const Orders = (props) => {
-  const { orders } = props;
+  const { orders, searchorder, searchpaidstatus, searchdeleiverdstatus, show } =
+    props;
+  let filteredorder = orders.filter(
+    (order) =>
+      order.user.name.toLowerCase().includes(searchorder.toLowerCase()) &&
+      (searchpaidstatus === "paid" ? order.isPaid : true) &&
+      (searchpaidstatus === "not-paid" ? !order.isPaid : true) &&
+      (searchdeleiverdstatus === "delivered" ? order.isDelivered : true) &&
+      (searchdeleiverdstatus === "not-delivered" ? !order.isDelivered : true)
+  );
+  filteredorder=filteredorder.slice(0, show)
+  // console.log(searchdeleiverdstatus);
   return (
     <table className="table">
       <thead>
@@ -20,7 +31,7 @@ const Orders = (props) => {
         </tr>
       </thead>
       <tbody>
-        {orders.map((order) => (
+        {filteredorder.map((order) => (
           <tr key={order._id}>
             <td>
               <b>{order.user.name}</b>

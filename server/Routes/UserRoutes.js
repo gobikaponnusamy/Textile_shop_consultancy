@@ -90,23 +90,36 @@ userRouter.put(
   "/profile",
   protect,
   asyncHandler(async (req, res) => {
+    console.log(req.body);
     const user = await User.findById(req.user._id);
-
+    console.log(user);
     if (user) {
-      user.name = req.body.name || user.name;
-      user.email = req.body.email || user.email;
-      if (req.body.password) {
-        user.password = req.body.password;
+      try {
+        user.name = req.body.name || user.name;
+        user.email = req.body.email || user.email;
+        if (req.body.password) {
+          user.password = req.body.password;
+        }
+        console.log(user);
+        const updatedUser = await user.save();
+        console.log("updatedUser", updatedUser);
+        res.json({
+          _id: updatedUser._id,
+          name: updatedUser.name,
+          email: updatedUser.email,
+          isAdmin: updatedUser.isAdmin,
+          createdAt: updatedUser.createdAt,
+          token: generateToken(updatedUser._id),
+        });
+      } catch (error) {
+        if (error.code === 11000) {
+          res.status(404);
+          throw new Error("Duplicate email address");
+        } else {
+          res.status(404);
+          throw new Error("Something went wrong");
+        }
       }
-      const updatedUser = await user.save();
-      res.json({
-        _id: updatedUser._id,
-        name: updatedUser.name,
-        email: updatedUser.email,
-        isAdmin: updatedUser.isAdmin,
-        createdAt: updatedUser.createdAt,
-        token: generateToken(updatedUser._id),
-      });
     } else {
       res.status(404);
       throw new Error("User not found");

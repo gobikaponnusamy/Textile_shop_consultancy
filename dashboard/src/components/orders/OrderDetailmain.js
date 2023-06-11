@@ -13,6 +13,7 @@ import moment from "moment";
 
 const OrderDetailmain = (props) => {
   const { orderId } = props;
+  console.log(orderId);
   const dispatch = useDispatch();
 
   const orderDetails = useSelector((state) => state.orderDetails);
@@ -26,7 +27,11 @@ const OrderDetailmain = (props) => {
   }, [dispatch, orderId, successDelivered]);
 
   const deliverHandler = () => {
-    dispatch(deliverOrder(order));
+    if (order.isPaid) {
+      dispatch(deliverOrder(order));
+    } else {
+      alert("Please complete the payment before marking as delivered to ensure a smooth process");
+    }
   };
 
   return (

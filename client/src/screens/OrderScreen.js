@@ -81,7 +81,6 @@ const OrderScreen = ({ match }) => {
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(orderId, paymentResult));
   };
-
   return (
     <>
       <ContactHeader />
@@ -245,10 +244,12 @@ const OrderScreen = ({ match }) => {
                     {!sdkReady ? (
                       <Loading />
                     ) : (
-                      <PayPalButton
-                        amount={order.totalPrice}
-                        onSuccess={successPaymentHandler}
-                      />
+                      order.paymentMethod === "paypal" && (
+                        <PayPalButton
+                          amount={order.totalPrice}
+                          onSuccess={successPaymentHandler}
+                        />
+                      )
                     )}
                   </div>
                 )}

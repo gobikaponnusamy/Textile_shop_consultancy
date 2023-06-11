@@ -37,7 +37,6 @@ const ProfileTabs = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // Password match
     if (password !== confirmPassword) {
       if (!toast.isActive(toastId.current)) {
         toastId.current = toast.error("Password does not match", Toastobjects);
@@ -71,8 +70,9 @@ const ProfileTabs = () => {
 
         <div className="col-md-6">
           <div className="form">
-            <label for="account-email">E-mail Address</label>
+            <label for="account-email">E-mail Address (Can't change) </label>
             <input
+              readOnly
               className="form-control"
               type="email"
               value={email}
