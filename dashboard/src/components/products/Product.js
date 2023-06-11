@@ -2,12 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteProduct } from "../../Redux/Actions/ProductActions";
-
+import moment from "moment";
 const Product = (props) => {
   const { product } = props;
   const dispatch = useDispatch();
-  const [createdDate, createdTime] =product.createdAt.split("T");
-  const [updatedDate, updatedTime] = product.updatedAt.split("T");
   const deletehandler = (id) => {
     if (window.confirm("Are you sure??")) {
       dispatch(deleteProduct(id));
@@ -30,12 +28,30 @@ const Product = (props) => {
                 {product.category}
               </Link>
             </div>
-            <div className="price mb-2">₹{product.price}</div>
-            <div className="price mb-2">{product.countInStock}</div>
-            <div className="price mb-2">Created Date : {createdDate}</div>
+            <div className="mb-1">
+              <strong> Price:</strong> {product.price}
+            </div>
+            <div className="mb-1">
+              <strong> Stock:</strong> {product.countInStock}{" "}
+            </div>
+            <div className="mb-1">
+              {" "}
+              <span>
+                <strong> createdAt: </strong>
+                {moment(product.createdAt).calendar()}
+              </span>
+            </div>
+            <div className="mb-1">
+              <span>
+                <strong> updatedAt: </strong>
+                {moment(product.updatedAt).calendar()}
+              </span>
+            </div>
+
+            {/* <div className="price mb-2">Created Date : {createdDate}</div>
             <div className="price mb-2">Created Time : {createdTime}</div>
             <div className="price mb-2">updated Date : {updatedDate}</div>
-            <div className="price mb-2">updated Time : {updatedTime}</div>
+            <div className="price mb-2">updated Time : {updatedTime}</div> */}
             {/* <div className="price mb-2">{product.updatedAt}</div> */}
             <div className="row">
               <Link

@@ -289,7 +289,7 @@ textarea:focus {
 .single-image {
   background-color: #f3fbf7;
   margin-right: 20px;
-  height: 700px;
+  height: 500px;
   display: flex;
   justify-content: center;
   align-items: center;

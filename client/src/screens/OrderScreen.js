@@ -41,16 +41,19 @@ const OrderScreen = ({ match }) => {
   //     })
   //     .catch((error) => console.log(error));
   // }, []);
-  console.log(orderId)
-   const payment=(event)=>{
-    axios.put(`http://localhost:5000/api/orders/orderss/${orderId}`).then((res)=>{
-      console.log(res);
-      window.location.reload();
-    }).catch((err)=>{
-      console.log(err);
-    })
-  }
-  
+  // console.log(orderId);
+  // const payment = (event) => {
+  //   axios
+  //     .put(`http://localhost:5000/api/orders/orderss/${orderId}`)
+  //     .then((res) => {
+  //       console.log(res);
+  //       window.location.reload();
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
   useEffect(() => {
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get(`${URL}/api/config/paypal`);
@@ -236,7 +239,7 @@ const OrderScreen = ({ match }) => {
                     </tr>
                   </tbody>
                 </table>
-                {/* {!order.isPaid && (
+                {!order.isPaid && (
                   <div className="col-12">
                     {loadingPay && <Loading />}
                     {!sdkReady ? (
@@ -248,8 +251,8 @@ const OrderScreen = ({ match }) => {
                       />
                     )}
                   </div>
-                )} */}
-                <button onClick={payment}>PAY ₹{order.totalPrice}</button>
+                )}
+                {/* <button onClick={successPaymentHandler}>PAY ₹{order.totalPrice}</button> */}
               </div>
             </div>
           </>

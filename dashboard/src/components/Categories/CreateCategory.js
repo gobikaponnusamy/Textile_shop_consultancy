@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import axios from "axios";
 const CreateCategory = () => {
   const [categoryName, setCategoryName] = useState("");
+  const [categoryDescription, setCategoryDescription] = useState("");
   const submitform = (e) => {
     const register = async () => {
       const response = await axios.post(
         "http://localhost:5000/api/categories/",
         {
-          categoryName: categoryName,
+          categoryName,
+          categoryDescription,
         }
       );
       console.log(response);
@@ -39,6 +41,7 @@ const CreateCategory = () => {
             placeholder="Type here"
             className="form-control"
             rows="4"
+            onChange={(e) => setCategoryDescription(e.target.value)}
           ></textarea>
         </div>
 

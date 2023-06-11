@@ -2,9 +2,23 @@ import express from "express";
 import asyncHandler from "express-async-handler";
 import { admin, protect } from "../Middleware/AuthMiddleware.js";
 import Order from "./../Models/OrderModel.js";
+import mongoose from 'mongoose';
 
 const orderRouter = express.Router();
 
+orderRouter.get("/review", protect, asyncHandler(async (req, res) => {
+  const { userid } = req.query;
+  const { productid } = req.query;
+  const id = mongoose.Types.ObjectId(userid);
+
+  console.log(id); // Check if the ObjectId is correctly created
+
+  const orders = await Order.find({ user: id,"orderItems.product": productid });
+
+  console.log(orders); // Check if the orders are retrieved successfully
+
+  res.json(orders);
+}));
 // CREATE ORDER
 
 
@@ -20,7 +34,7 @@ orderRouter.post(
       taxPrice,
       shippingPrice,
       totalPrice,
-    } = req.body;
+    } = req.body;  
 
     if (orderItems && orderItems.length === 0) {
       res.status(400);
@@ -36,13 +50,13 @@ orderRouter.post(
         taxPrice,
         shippingPrice,
         totalPrice,
-      });
+      });  
 
       const createOrder = await order.save();
       res.status(201).json(createOrder);
-    }
-  })
-);
+    }  
+  })  
+);  
 
 // ADMIN GET ALL ORDERS
 orderRouter.get(
@@ -53,13 +67,9 @@ orderRouter.get(
     const orders = await Order.find({})
       .sort({ _id: -1 })
       .populate("user", "id name email");
-    res.json(orders);
-  })
-);
-orderRouter.get("/getallorders",asyncHandler(async (req, res) => {
-  const orders = await Order.find()
-  res.json(orders);
-}));
+    res.json(orders);  
+  })  
+);  
 
 // USER LOGIN ORDERS
 orderRouter.get(

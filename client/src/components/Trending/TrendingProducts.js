@@ -5,7 +5,8 @@ import { listProduct } from "../../Redux/Actions/ProductActions";
 import Loading from "../LoadingError/Loading";
 import Message from "../LoadingError/Error";
 import Rating from "../homeComponents/Rating";
-import { Pagination } from "react-bootstrap";
+// import { Pagination } from "react-bootstrap";
+
 
 const TrendingProducts = (props) => {
   const { keyword, pagenumber } = props;
@@ -65,13 +66,6 @@ const TrendingProducts = (props) => {
                     ))}
                   </>
                 )}
-
-                {/* Pagination */}
-                <Pagination
-                  pages={pages}
-                  page={page}
-                  keyword={keyword ? keyword : ""}
-                />
               </div>
             </div>
           </div>
