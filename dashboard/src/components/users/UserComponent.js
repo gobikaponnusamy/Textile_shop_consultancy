@@ -7,22 +7,21 @@ import Message from "../LoadingError/Error";
 
 const UserComponent = () => {
   const dispatch = useDispatch();
-
-  const productList = useSelector((state) => state.productList);
-  const { loading, error, users } = productList;
-  const [flag, setFlag] = useState(true);
-
-  const [searchInput, setSearchInput] = useState("");
+  const [searchinput, setSearchInput] = useState("");
+  const [show, setShow] = useState(10);
+  const userList = useSelector((state) => state.userList);
+  const { loading, error, users } = userList;
   useEffect(() => {
     dispatch(listUser());
-    setFlag(false);
-  });
+  }, [dispatch]);
 
-  // if(!flag)
-  var filteredusers = users.map((user) =>
-    user.email.toLowerCase().includes(searchInput.toLowerCase())
-  );
-
+  console.log(users);
+  let filteredusers =
+    users &&
+    users.filter((user) =>
+      user.email.toLowerCase().includes(searchinput.toLowerCase())
+    );
+  filteredusers = filteredusers && filteredusers.slice(0, show);
   return (
     <section className="content-main">
       <div className="content-header">
@@ -46,18 +45,24 @@ const UserComponent = () => {
               />
             </div>
             <div className="col-lg-2 col-6 col-md-3">
-              <select className="form-select">
-                <option>Show 20</option>
-                <option>Show 30</option>
-                <option>Show 40</option>
-                <option>Show all</option>
+              <select
+                className="form-select"
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setShow(value === "" ? users.length : parseInt(value));
+                }}
+              >
+                <option value="10">Show 10</option>
+                <option value="20">Show 20</option>
+                <option value="30">Show 30</option>
+                <option value="">Show all</option>
               </select>
             </div>
             <div className="col-lg-2 col-6 col-md-3">
               <select className="form-select">
                 <option>Status: all</option>
-                <option>Active only</option>
-                <option>Disabled</option>
+                <option>Active</option>
+                <option>InActive</option>
               </select>
             </div>
           </div>
